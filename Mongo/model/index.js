@@ -13,7 +13,7 @@ mongoose.connect("mongodb://localhost:27017/taskcli", {
 });
 
 // import task model
-const Task = require("./models/task");
+const Task = require("./task");
 
 // add task
 const addTask = async (task) => {
@@ -85,7 +85,7 @@ const findTask = async (name) => {
 	try {
 		const search = new RegExp(name, "i");
 		const foundTask = await Task.find({
-			$or: [{ firstname: search }, { lastname: search }],
+			$or: [{ name: search }, { description: search }],
 		});
 		if (foundTask) {
 			console.info(foundTask);
