@@ -1,5 +1,5 @@
 ## Task Command-line
----
+
 Command line application to create, update, edit and delete tasks  
 When you edit, you can finish a task. 
 By default, the tasks are in an "to-do" status, you can edit them to "in-progress" or "finished".  
@@ -15,6 +15,13 @@ Now you can go to your terminal Bash, CMD, command prompt, etc and type:
 ```
 task-cli
 ```
+
+or directly whith Npx. Npx replaces the. node_modules/.bin (valid for PowerShell)
+
+```
+npx task-cli
+```
+
 and make use of the program
 
 
@@ -22,12 +29,12 @@ and make use of the program
 ![Screenshot](screenshot.jpg)
 
 
-You can use the command
+You can use the command   
 e.g
 ```
 task-cli add
 ```
-or alias
+or alias   
 e.g
 ```
 task-cli a
