@@ -10,8 +10,6 @@ let config = {
   database: process.env.DB_DATABASE,
 };
 
-console.log(config)
-
 async function initialize() {
   let db = {};
   // create db if it doesn't already exist
