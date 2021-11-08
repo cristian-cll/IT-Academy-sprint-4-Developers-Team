@@ -14,7 +14,22 @@ e.g (Bash, CMD or command prompt).
 ```
 cd mongo & npm install  
 ```
-In PowerShell ( cd mongo; npm install )
+```
+cd mysql & npm install  
+```
+```
+cd json & npm install  
+```
+In PowerShell
+```
+cd mongo; npm install
+```
+```
+cd mysql; npm install
+```
+```
+cd json; npm install
+```
 
 ### Basic configuration:
 - Mongo   
@@ -26,10 +41,17 @@ and rename this file .env.example to .env
 
 
 ### HOW TO USE:
+
+First of all you have to be in the corresponding folder:   
+...IT_ACADEMY_SPRINT_4_Developers_team/mongo   
+...IT_ACADEMY_SPRINT_4_Developers_team/mysql   
+...IT_ACADEMY_SPRINT_4_Developers_team/json   
+
+Then you have to type in the console   
 ```
 npm link
 ```
-This 'means to symlink a package folder'. Put simply, it's a means to connect your parent application to a module you have locally on your machine. When you run the application, any changes you make to the dependency will be reflected in the application.
+_This 'means to symlink a package folder'. Put simply, it's a means to connect your parent application to a module you have locally on your machine. When you run the application, any changes you make to the dependency will be reflected in the application._
 
 Now you can go to your terminal Bash, CMD, command prompt, etc and type:
 ```
@@ -42,23 +64,62 @@ or directly whith Npx. Npx replaces the. node_modules/.bin (valid for PowerShell
 npx task-cli
 ```
 
-and make use of the program
-
+Then you will have the interface on the console like this and you can interact with it:
 
 
 ![Screenshot](screenshot.jpg)
 
 
-You can use the command   
-e.g
+## Now you can use the application by means of commands
+You can use the command or directly the alias   
+
+---
+**Add a task**  
 ```
 task-cli add
 ```
 or alias   
-e.g
 ```
 task-cli a
 ```
+---
+**Find a task**  
+```
+task-cli find <task name>
+```
+or alias   
+```
+task-cli f <task name>
+```
+---
+
+**List tasks** 
+```
+task-cli list
+```
+or alias   
+```
+task-cli l
+```
+---
+**Update task** 
+```
+task-cli update <task id>
+```
+or alias   
+```
+task-cli u <task id>
+```
+---
+**Delete task** 
+```
+task-cli delete <task id>
+```
+or alias   
+```
+task-cli d <task id>
+```
+
 
 
 ---

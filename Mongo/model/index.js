@@ -65,7 +65,6 @@ const removeTask = async (_id) => {
 
 // list all tasks in db
 const listTasks = async () => {
-	console.log(process.env.hola);
 	try {
 		const allTasks = await Task.find();
 		if (allTasks) {
