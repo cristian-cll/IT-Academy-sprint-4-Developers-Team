@@ -5,6 +5,26 @@ When you edit, you can finish a task.
 By default, the tasks are in an "to-do" status, you can edit them to "in-progress" or "finished".  
 If you finish the task, an end date will be added.
 
+
+### HOW TO INSTALL:
+
+Choose the data persistence to use entering the corresponding folder.   
+e.g (Bash, CMD or command prompt).  
+
+```
+cd mongo & npm install  
+```
+In PowerShell ( cd mongo; npm install )
+
+### Basic configuration:
+- Mongo   
+You have to put your connection uri in Mongo / model / index.js   
+... mongoose.connect("mongodb://localhost:27017/taskcli", ....
+- Mysql   
+You have to put your connection data in Mysql / .env.example   
+and rename this file .env.example to .env
+
+
 ### HOW TO USE:
 ```
 npm link
