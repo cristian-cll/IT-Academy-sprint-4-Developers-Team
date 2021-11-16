@@ -1,5 +1,5 @@
-require('dotenv').config();
-
+const { mongoConfig } = require("../databaseConfig");
+const { host, port, database } = mongoConfig;
 
 // require mongoose
 const mongoose = require("mongoose");
@@ -8,17 +8,18 @@ const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
 // connect to db
-mongoose.connect("mongodb://localhost:27017/taskcli", {
+mongoose.connect(`mongodb://${host}:${port}/${database}`, {
 	/*  useMongoClient: true, */
 });
 
 // import task model
-const Task = require("./task");
+const Task = require("./model/task");
 
 // add task
 const addTask = async (task) => {
 	try {
 		const newTask = await Task.create(task);
+
 		if (newTask) {
 			console.info("New Task Added");
 			mongoose.connection.close();
@@ -31,12 +32,16 @@ const addTask = async (task) => {
 };
 
 // update task
-const updateTask = async (_id, task) => {
+const updateTask = async (idTask, task) => {
 	try {
+		const isTaskExist = await Task.find({uid : idTask})
+
+		if(!isTaskExist) return;
+
 		task && task.status === "finished"
 			? task['finishedDate'] = Date.now()
 			: task['finishedDate'] = null;
-		const updatedTask = await Task.updateOne({ _id }, task);
+		const updatedTask = await Task.updateOne({ uid: idTask }, task);
 		if (updatedTask) {
 			console.info("Task Updated");
 			mongoose.connection.close();
@@ -51,7 +56,7 @@ const updateTask = async (_id, task) => {
 // update task
 const removeTask = async (_id) => {
 	try {
-		const removeTask = await Task.deleteOne({ _id });
+		const removeTask = await Task.deleteOne({ uid: _id });
 		if (removeTask) {
 			console.info("Task removed from database");
 			mongoose.connection.close();
@@ -65,16 +70,12 @@ const removeTask = async (_id) => {
 
 // list all tasks in db
 const listTasks = async () => {
-	console.log(process.env.hola);
 	try {
-		const allTasks = await Task.find();
-		if (allTasks) {
-			console.info(allTasks);
-			console.info(`${allTasks.length} matches returned.`);
-			mongoose.connection.close();
-		} else {
-			console.error("error listing all tasks");
-		}
+		
+		const list = await Task.find();
+		mongoose.connection.close();
+		return list;
+
 	} catch (error) {
 		console.error(error);
 	}
@@ -83,17 +84,29 @@ const listTasks = async () => {
 // find task
 const findTask = async (name) => {
 	try {
+
 		const search = new RegExp(name, "i");
 		const foundTask = await Task.find({
 			$or: [{ name: search }, { description: search }],
 		});
-		if (foundTask) {
-			console.info(foundTask);
-			console.info(`${foundTask.length} matches`);
-			mongoose.connection.close();
-		} else {
-			console.error("Error finding task");
-		}
+		mongoose.connection.close();
+		return foundTask;
+
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+// find task by id
+const findById = async (idTask) => {
+	try {
+
+		const taskFound = await Task.find({uid: idTask});
+		if(taskFound.length > 0) return taskFound;
+
+		console.log("Does not exist this id");
+		return null;
+
 	} catch (error) {
 		console.error(error);
 	}
@@ -106,4 +119,5 @@ module.exports = {
 	updateTask,
 	removeTask,
 	listTasks,
+	findById
 };

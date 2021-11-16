@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const taskSchema = mongoose.Schema(
 	{
+		uid: { 
+			type: String,
+			default: Math.random().toString(16)
+		},
 		name: { type: String },
 		description: { type: String },
 		status: { 
@@ -11,7 +15,7 @@ const taskSchema = mongoose.Schema(
 		},
 		startDate: { type: Date, default: Date.now() },
 		finishedDate: { type: Date },
-		user: { type: String },
+		user: { type: String }
 	},
 	{ versionKey: false }
 );
